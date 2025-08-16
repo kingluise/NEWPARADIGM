@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital Flow Advisory - Home</title>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-brand">
+                <!-- Added logo image here -->
+                <a href="index.html">
+                    <img src="images/log.jpg" alt="CapitalFlow Logo" class="logo">
+                    NEW PARADIGM INVESTMENT CHANNEL LIMITED
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="about.html" class="nav-link">About us</a>
+                <a href="service.html" class="nav-link">Services</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+
+            </div>
+            <div class="mobile-menu-button-container">
+                <button id="mobile-menu-button" aria-expanded="false">
+                    <svg class="hamburger" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="images/new.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="hero-content">
+            <h1 class="hero-title">Navigating the Complex World of Capital Markets</h1>
+            <p class="hero-subtitle">Your trusted partner in financial strategy, analysis, and growth.</p>
+            <a href="contact.html" class="hero-cta-button">Book a Free Consultation</a>
+        </div>
+    </header>
+
+
+    <main>
+        <!-- Market Dashboard Section -->
+        <section id="market-dashboard">
+            <div class="section-header">
+                <h2>Market Overview</h2>
+                <p>Real-time data and insights to keep you informed.</p>
+            </div>
+            <div class="market-grid">
+                <!-- Top Movers Card -->
+                <div class="top-movers-card">
+                    <h3>Top Movers</h3>
+                    <div class="movers-tables">
+                        <div>
+                            <h4>Gainers</h4>
+                            <div class="table-container">
+                                <!-- Replaced ul with table and added ID -->
+                                <table id="gainersTable" class="simple-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Symbol</th>
+                                            <th>Price</th>
+                                            <th>% Change</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td colspan="3">Loading…</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <h4>Losers</h4>
+                            <div class="table-container">
+                                <!-- Replaced ul with table and added ID -->
+                                <table id="losersTable" class="simple-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Symbol</th>
+                                            <th>Price</th>
+                                            <th>% Change</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td colspan="3">Loading…</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market Breadth Card -->
+                <!-- Added Market Breadth section with ID -->
+                <div class="market-breadth-card">
+                    <h3>Market Breadth</h3>
+                    <div id="breadthWidget" class="breadth-widget">
+                        <p>Calculating breadth...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section id="charts">
+            <div class="chart-card">
+                <h3>Market Performance</h3>
+                <div class="chart-container">
+                    <!-- Replaced placeholder div with canvas and added ID -->
+                    <canvas id="marketChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- News and Analysis Section -->
+        <section id="insights">
+            <div class="insights-grid">
+                <!-- Economic News Feed -->
+                <div class="news-card">
+                    <h3>Economic News Feed</h3>
+                    <!-- Added ID to the ul -->
+                    <ul id="newsFeedList">
+                        <li>Loading news...</li>
+                    </ul>
+                </div>
+                <!-- Expert Analysis & Blogs -->
+                <div class="blogs-card">
+                    <h3>Expert Analysis & Blogs</h3>
+                    <!-- Added ID to the blogs container -->
+                    <div id="blogsContainer" class="blogs-list">
+                        <p>Loading analysis...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about">
+            <div class="section-header">
+                <h2>Who We Are</h2>
+                <p>CapitalFlow Advisory is a premier financial consulting firm dedicated to empowering our clients with strategic insights and tailored solutions. With decades of combined experience, our team of experts helps businesses and investors navigate the intricacies of the global capital markets. We specialize in providing guidance that drives growth, manages risk, and maximizes returns.</p>
+            </div>
+        </section>
+
+        <!-- Services Preview Section -->
+        <section id="services-preview">
+            <div class="section-header">
+                <h2>Our Expertise</h2>
+                <p>A glimpse into what we offer.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Financial Advisory</h3>
+                    <p>We provide expert guidance on mergers and acquisitions, divestitures, and corporate restructuring to help you achieve your strategic goals.</p>
+                    <a href="services.html#financial-advisory" class="learn-more">Learn More &rarr;</a>
+                </div>
+                <div class="service-card">
+                    <h3>Investment Research</h3>
+                    <p>Our team conducts in-depth research and analysis to identify lucrative investment opportunities and minimize risks in a volatile market.</p>
+                    <a href="services.html#investment-research" class="learn-more">Learn More &rarr;</a>
+                </div>
+                <div class="service-card">
+                    <h3>Portfolio Management</h3>
+                    <p>We build and manage diversified portfolios that align with your risk tolerance and financial objectives, ensuring sustainable long-term growth.</p>
+                    <a href="services.html#portfolio-management" class="learn-more">Learn More &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Case Studies / Testimonials Section -->
+        <section id="testimonials">
+            <div class="testimonials-container">
+                <div class="section-header">
+                    <h2>What Our Clients Say</h2>
+                    <p>Success stories from our valued partners.</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <blockquote>"CapitalFlow's team provided invaluable insights that led to a 25% increase in our portfolio's value over the last year. Their expertise is unmatched."</blockquote>
+                        <div class="testimonial-author">- Jane Doe, CEO of TechCorp</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <blockquote>"The strategic guidance we received was clear, concise, and perfectly aligned with our business goals. We highly recommend their services."</blockquote>
+                        <div class="testimonial-author">- John Smith, Founder of Innovate Ltd.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>About Us</h4>
+                <p>We are committed to delivering world-class financial advisory services to help clients achieve sustainable success.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>Email: info@capitalflow.com</p>
+                <p>Phone: +234 801 234 5678</p>
+                <p>Address: Lagos, Nigeria</p>
+            </div>
+            <div class="footer-column">
+                <h4>Newsletter</h4>
+                <form>
+                    <input type="email" placeholder="Your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CapitalFlow Advisory. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <!-- WhatsApp Live Chat Button -->
+<a href="https://wa.me/2348012345678"
+   class="whatsapp-chat"
+   target="_blank"
+   title="Chat with us on WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Chat">
+</a>
+
+
+    <!-- JavaScript for page functionality -->
+    <script src="js/script.js"></script>
+</body>
+</html>
