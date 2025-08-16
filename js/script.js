@@ -28,18 +28,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // 2. Data Rendering Functions (for both mock and real data)
+    // 2. Scroll Reveal for Service Cards
+    // =========================================================================
+    const serviceCards = document.querySelectorAll('.service-card');
+
+    const revealOnScroll = () => {
+        const triggerBottom = window.innerHeight * 0.85;
+
+        serviceCards.forEach(card => {
+            const cardTop = card.getBoundingClientRect().top;
+
+            if (cardTop < triggerBottom) {
+                card.classList.add('visible');
+            }
+        });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll(); // reveal cards already in view on load
+
+    // =========================================================================
+    // 3. Data Rendering Functions (for both mock and real data)
     // =========================================================================
 
-    /**
-     * Renders the top gainers and losers in their respective tables.
-     * @param {Object} moversData - An object containing gainers and losers arrays.
-     */
     const renderTopMovers = (moversData) => {
         const gainersTableBody = document.getElementById('gainersTable')?.querySelector('tbody');
         const losersTableBody = document.getElementById('losersTable')?.querySelector('tbody');
 
-        // Check for valid data before rendering
         if (!moversData || !Array.isArray(moversData.gainers) || !Array.isArray(moversData.losers)) {
             console.error('renderTopMovers received invalid data:', moversData);
             if (gainersTableBody) gainersTableBody.innerHTML = '<tr><td colspan="3">Data unavailable.</td></tr>';
@@ -57,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return tr;
         };
 
-        // Clear existing content
         if (gainersTableBody) gainersTableBody.innerHTML = '';
         if (losersTableBody) losersTableBody.innerHTML = '';
 
@@ -65,10 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
         moversData.losers.forEach(item => losersTableBody?.appendChild(createTableRow(item, false)));
     };
 
-    /**
-     * Renders the market breadth widget.
-     * @param {Object} breadthData - An object with advancing, declining, and unchanged counts.
-     */
     const renderMarketBreadth = (breadthData) => {
         const breadthWidget = document.getElementById('breadthWidget');
         if (!breadthWidget || !breadthData) {
@@ -95,10 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     };
 
-    /**
-     * Renders the market performance chart using Chart.js.
-     * @param {Object} chartData - The data object for the chart.
-     */
     const renderMarketChart = (chartData) => {
         const ctx = document.getElementById('marketChart');
         if (ctx) {
@@ -108,26 +114,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
                 }
             });
         }
     };
 
-    /**
-     * Renders the news and blog feeds.
-     * @param {Array} newsData - An array of news objects.
-     * @param {Array} blogsData - An array of blog objects.
-     */
     const renderInsights = (newsData, blogsData) => {
         const newsFeedList = document.getElementById('newsFeedList');
         const blogsContainer = document.getElementById('blogsContainer');
@@ -155,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return div;
         };
 
-        // Clear existing content
         newsFeedList.innerHTML = '';
         blogsContainer.innerHTML = '';
 
@@ -164,38 +156,22 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // =========================================================================
-    // 3. API Fetching Logic
-    // This section contains functions to fetch data from real APIs.
-    // Replace the placeholder URLs and API keys with your own.
+    // 4. API Fetching Logic
     // =========================================================================
-
-    // This API key has been provided by the user.
     const API_KEY = 'EI339Y34FX1BR93U';
 
-    /**
-     * Fetches top movers and market breadth data from a financial API.
-     */
     const fetchMarketData = async () => {
         try {
-            // Check if API key is set
-            if (API_KEY === 'YOUR_ALPHA_VANTAGE_API_KEY') {
-                throw new Error('Please replace "YOUR_ALPHA_VANTAGE_API_KEY" with a valid key from Alpha Vantage.');
-            }
+            if (API_KEY === 'YOUR_ALPHA_VANTAGE_API_KEY') throw new Error('Please provide a valid API key.');
 
-            // Using Alpha Vantage API for top movers.
             const moversResponse = await fetch(`https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${API_KEY}`);
             const moversData = await moversResponse.json();
 
-            // --- FIX IS HERE ---
-            // Check for API-specific error messages first
             if (moversData['Error Message'] || moversData['Note']) {
-                console.error('Alpha Vantage API Error:', moversData['Error Message'] || moversData['Note']);
-                throw new Error('API returned an error. Please check your API key or a rate limit may have been exceeded.');
+                throw new Error(moversData['Error Message'] || moversData['Note']);
             }
 
-            // Then, validate the expected data structure before rendering
             if (moversData && Array.isArray(moversData.top_gainers) && Array.isArray(moversData.top_losers)) {
-                // Reformatting the data to fit the renderTopMovers function
                 const gainersData = moversData.top_gainers.map(item => ({
                     symbol: item.ticker,
                     price: parseFloat(item.price).toFixed(2),
@@ -210,16 +186,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 renderTopMovers({ gainers: gainersData, losers: losersData });
             } else {
-                console.error('API response for top movers was invalid or missing expected properties.', moversData);
                 renderTopMovers({ gainers: [], losers: [] });
             }
 
-            // Using mock data for market breadth since there's no dedicated Alpha Vantage endpoint for it.
-            const mockBreadthData = {
-                advancing: 2500,
-                declining: 500,
-                unchanged: 100
-            };
+            const mockBreadthData = { advancing: 2500, declining: 500, unchanged: 100 };
             renderMarketBreadth(mockBreadthData);
 
         } catch (error) {
@@ -228,15 +198,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const losersBody = document.getElementById('losersTable')?.querySelector('tbody');
             const breadthWidget = document.getElementById('breadthWidget');
 
-            if (gainersBody) gainersBody.innerHTML = `<tr><td colspan="3" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${error.message || 'Failed to load data.'}</td></tr>`;
-            if (losersBody) losersBody.innerHTML = `<tr><td colspan="3" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${error.message || 'Failed to load data.'}</td></tr>`;
-            if (breadthWidget) breadthWidget.innerHTML = `<p class="col-span-3 text-red-500">${error.message || 'Failed to load data.'}</p>`;
+            if (gainersBody) gainersBody.innerHTML = `<tr><td colspan="3">${error.message}</td></tr>`;
+            if (losersBody) losersBody.innerHTML = `<tr><td colspan="3">${error.message}</td></tr>`;
+            if (breadthWidget) breadthWidget.innerHTML = `<p>${error.message}</p>`;
         }
     };
 
-    /**
-     * Renders the market performance chart with mock data.
-     */
     const renderMockChartData = () => {
         const mockChartData = {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
@@ -253,9 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderMarketChart(mockChartData);
     };
 
-    /**
-     * Renders the news and blog posts with mock data.
-     */
     const renderMockInsights = () => {
         const mockNewsData = [
             { title: 'Global Markets Rebound as Inflation Fears Ease', url: '#' },
@@ -275,8 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // =========================================================================
-    // 4. Initial Load
-    // Call the fetching functions when the page loads
+    // 5. Initial Load
     // =========================================================================
     fetchMarketData();
     renderMockChartData();

@@ -1,19 +1,22 @@
 /* =========================
-   BASE / TOKENS
+   GLOBAL / BASE TOKENS
 ========================= */
 :root {
   --text: #111827;
   --muted: #6b7280;
   --bg: #f7f9fc;
   --card: #ffffff;
-  --white: #ffffff; /* Added for clarity */
-  --accent: #2563eb;       /* primary blue */
-  --accent-2: #0ea5e9;     /* secondary sky */
+  --white: #ffffff;
+  --accent: #2563eb;
+  --accent-2: #0ea5e9;
   --radius: 16px;
   --shadow-sm: 0 2px 10px rgba(0,0,0,.06);
   --shadow-md: 0 10px 25px rgba(0,0,0,.08);
 }
 
+/* =========================
+   GENERAL STYLES
+========================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -34,8 +37,6 @@ img {
   max-width: 100%;
   display: block;
 }
-
-/* layout helper */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -43,17 +44,16 @@ img {
 }
 
 /* =========================
-   HEADER / NAV (FIXED)
+   NAVBAR
 ========================= */
 nav {
-  background: var(--card); /* Changed to solid white */
+  background: var(--card);
   border-bottom: 1px solid #eef0f4;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
-
 .nav-container {
   max-width: 1200px;
   margin: auto;
@@ -62,37 +62,32 @@ nav {
   justify-content: space-between;
   align-items: center;
 }
-
 .nav-brand a {
   display: flex;
   align-items: center;
   font-weight: bold;
   text-decoration: none;
-  color: var(--text); /* Changed from --primary to --text */
+  color: var(--text);
   font-size: 1rem;
   transition: color 0.3s ease;
 }
-
 .logo {
   height: 40px;
   margin-right: 0.5rem;
   border-radius: 100px;
 }
-
 .nav-links {
   display: flex;
   gap: 1.5rem;
 }
-
 .nav-link {
   text-decoration: none;
-  color: var(--text); /* Changed from --primary to --text */
+  color: var(--text);
   font-weight: 500;
   position: relative;
   padding-bottom: 3px;
   transition: color 0.3s ease;
 }
-
 .nav-link::after {
   content: '';
   position: absolute;
@@ -103,19 +98,30 @@ nav {
   background: var(--accent);
   transition: width 0.3s ease;
 }
-
 .nav-link:hover::after,
-.nav-link.active::after {
-  width: 100%;
-}
-
+.nav-link.active::after { width: 100%; }
 .nav-link.active,
-.nav-link:hover {
-  color: var(--accent);
+.nav-link:hover { color: var(--accent); }
+
+/* NAVBAR TOGGLER (MOBILE) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  height: 3px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
 /* =========================
-   PAGE TITLE / BREADCRUMB
+   PAGE TITLE / HERO (if any)
 ========================= */
 .page-title {
   background:
@@ -125,9 +131,7 @@ nav {
   padding: 72px 0 56px;
   border-bottom: 1px solid #e9ecf3;
 }
-.page-title .container {
-  text-align: center;
-}
+.page-title .container { text-align: center; }
 .page-title h1 {
   font-size: 2.5rem;
   line-height: 1.2;
@@ -143,12 +147,96 @@ nav {
   color: var(--accent);
   text-decoration: none;
 }
-.page-title p a:hover {
-  text-decoration: underline;
-}
+.page-title p a:hover { text-decoration: underline; }
 
 /* =========================
-   COMPANY OVERVIEW
+   SERVICES SECTION
+========================= */
+.services {
+  padding: 80px 0;
+}
+.services .section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.services .section-header h2 {
+  font-size: 2.25rem;
+  margin-bottom: 16px;
+  position: relative;
+  display: inline-block;
+}
+.services .section-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 2px;
+}
+.services .section-header p {
+  color: var(--muted);
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 32px;
+}
+.service-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  border: 1px solid #eef0f4;
+}
+.service-image-container {
+  height: 240px;
+  overflow: hidden;
+}
+.service-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.service-card:hover .service-image-container img {
+  transform: scale(1.05);
+}
+.service-content { padding: 24px; }
+.service-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.service-content p {
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+.service-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+.service-link:hover { color: var(--accent-2); }
+.service-link::after {
+  content: '→';
+  margin-left: 8px;
+  transition: margin 0.3s ease;
+}
+.service-link:hover::after { margin-left: 12px; }
+
+/* =========================
+   ABOUT COMPANY
 ========================= */
 .about-company {
   padding: 88px 0 40px;
@@ -192,7 +280,7 @@ nav {
 }
 
 /* =========================
-   MANAGING DIRECTOR CARD
+   MANAGING DIRECTOR
 ========================= */
 .managing-director {
   padding: 24px 0 88px;
@@ -224,10 +312,7 @@ nav {
   color: var(--accent);
   margin: 4px 0 14px;
 }
-.managing-director .text p {
-  color: var(--muted);
-  margin-bottom: 12px;
-}
+.managing-director .text p { color: var(--muted); margin-bottom: 12px; }
 .managing-director .text p:first-of-type {
   position: relative;
   padding-left: 16px;
@@ -279,13 +364,8 @@ nav {
   width: 100%;
   background: linear-gradient(90deg,var(--accent),var(--accent-2));
 }
-.value-card h3 {
-  margin-bottom: 8px;
-  font-size: 1.05rem;
-}
-.value-card p {
-  color: var(--muted);
-}
+.value-card h3 { margin-bottom: 8px; font-size: 1.05rem; }
+.value-card p { color: var(--muted); }
 .value-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 18px 40px rgba(0,0,0,.10);
@@ -324,24 +404,11 @@ footer h3::after {
   background: linear-gradient(90deg,var(--accent),var(--accent-2));
   border-radius: 2px;
 }
-footer p, footer a, footer li {
-  font-size: .95rem;
-}
-footer a {
-  color: #cbd5e1;
-  text-decoration: none;
-}
-footer a:hover {
-  color: #93c5fd;
-}
-footer ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-footer ul li {
-  margin: 8px 0;
-}
+footer p, footer a, footer li { font-size: .95rem; }
+footer a { color: #cbd5e1; text-decoration: none; }
+footer a:hover { color: #93c5fd; }
+footer ul { list-style: none; padding: 0; margin: 0; }
+footer ul li { margin: 8px 0; }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,.08);
   text-align: center;
@@ -349,37 +416,74 @@ footer ul li {
   color: #94a3b8;
 }
 
+/* WhatsApp Chat Floating Button */
+.whatsapp-chat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background-color: #2563eb;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+}
+.whatsapp-chat img {
+    width: 50px;
+    height: 50px;
+}
+.whatsapp-chat:hover {
+    transform: scale(1.1);
+    background-color: #0ea5e9;
+}
+
 /* =========================
    RESPONSIVE
 ========================= */
 @media (max-width: 1100px) {
-  .about-company .about-content {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-  .managing-director .director-card {
-    grid-template-columns: 1fr;
-  }
+  .about-company .about-content { grid-template-columns: 1fr; gap: 36px; }
+  .managing-director .director-card { grid-template-columns: 1fr; }
 }
 @media (max-width: 900px) {
-  .mission-values .values {
-    grid-template-columns: repeat(2,1fr);
-  }
+  .mission-values .values { grid-template-columns: repeat(2,1fr); }
 }
 @media (max-width: 600px) {
-  .page-title {
-    padding: 56px 0 40px;
-  }
-  .page-title h1 {
-    font-size: 2rem;
-  }
-  .mission-values .values {
-    grid-template-columns: 1fr;
-  }
-  .managing-director .director-card {
-    padding: 28px;
-  }
-  footer .footer-grid {
-    grid-template-columns: 1fr;
-  }
+  .page-title { padding: 56px 0 40px; }
+  .page-title h1 { font-size: 2rem; }
+  .mission-values .values { grid-template-columns: 1fr; }
+  .managing-director .director-card { padding: 28px; }
+  footer .footer-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .page-title { padding: 40px 16px 32px; }
+  .page-title h1 { font-size: 1.6rem; }
+  .page-title p { font-size: 0.85rem; }
+
+  .about-company { padding: 60px 16px 32px; }
+  .about-company .text h2 { font-size: 1.5rem; }
+  .about-company .text p { font-size: 0.9rem; }
+  .about-company .image::before { height: 80px; width: 160px; }
+
+  .managing-director { padding: 20px 16px 48px; }
+  .managing-director .text h2 { font-size: 1.4rem; }
+  .managing-director .text h3 { font-size: 0.95rem; }
+  .managing-director .text p { font-size: 0.88rem; }
+  .managing-director .director-card { gap: 24px; }
+
+  .mission-values { padding: 16px 16px 64px; }
+  .mission-values h2 { font-size: 1.5rem; }
+  .value-card h3 { font-size: 0.95rem; }
+  .value-card p { font-size: 0.85rem; }
+  .mission-values .values { gap: 16px; }
+
+  footer .footer-grid { padding: 32px 16px; gap: 24px; }
+  footer h3 { font-size: 0.95rem; }
+  footer p, footer a, footer li { font-size: 0.85rem; }
+
+  .nav-container { padding: 0.6rem 12px; }
+  .nav-brand a { font-size: 0.9rem; }
+  .nav-links { gap: 12px; }
+
+  .whatsapp-chat img { width: 40px; height: 40px; }
+  .whatsapp-chat { padding: 8px; bottom: 16px; right: 16px; }
 }
