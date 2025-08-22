@@ -149,6 +149,26 @@ nav {
 }
 .page-title p a:hover { text-decoration: underline; }
 
+/* Style for image wrappers on about page */
+.image {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 600px;   /* control the display size */
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* fills container nicely */
+  transition: transform 0.3s ease;
+}
+
+.image img:hover {
+  transform: scale(1.05);   /* subtle zoom on hover */
+}
+
+
 /* =========================
    SERVICES SECTION
 ========================= */
@@ -196,12 +216,12 @@ nav {
   border: 1px solid #eef0f4;
 }
 .service-image-container {
-  height: 240px;
+  height: auto;
   overflow: hidden;
 }
 .service-image-container img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   transition: transform 0.5s ease;
 }

@@ -251,6 +251,7 @@ nav {
     margin-top: 1rem;
 }
 
+
 /* =========================
    GRID & CARD STYLES
 ========================= */
@@ -286,6 +287,8 @@ nav {
     padding: 1.5rem;
     box-shadow: var(--shadow-sm);
 }
+
+
 
 /* =========================
    FOOTER
